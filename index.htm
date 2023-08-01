@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+		<script>
+			$(document).ready(function(){
+				$(".ticketid").hide();
+				$(".ticketsubject").hide();
+				$(".customeremail").hide();
+				$(".customername").hide();
+				$(".companyCSAT").hide();
+				$(".companyALL").hide();
+				$(".agentname").hide();
+
+				$('#survey').on('change', function() {
+					if(this.value == "CSAT") {
+						$(".ticketid").show();
+						$(".ticketsubject").hide();
+						$(".customeremail").show();
+						$(".customername").show();
+						$(".companyCSAT").show();
+						$(".companyALL").hide();
+						$(".agentname").show();
+
+						$('#OTHERS').css("display","none");
+					} else if(this.value == "CES") {
+						$(".ticketid").hide();
+						$(".ticketsubject").show();
+						$(".customeremail").show();
+						$(".customername").show();
+						$(".companyCSAT").hide();
+						$(".companyALL").show();
+						$(".agentname").show();
+
+						$('#OTHERS').css("display","initial");
+					} else if(this.value == "NPS") {
+						$(".ticketid").hide();
+						$(".ticketsubject").hide();
+						$(".customeremail").show();
+						$(".customername").show();
+						$(".companyCSAT").hide();
+						$(".companyALL").show();
+						$(".agentname").show();
+
+						$('#OTHERS').css("display","initial");
+					}
+				});
+			});
+
+			var agentName;
+			var agentEmail;
+
+			function getInfo() {
+				agentName = document.getElementById("agentname").value;
+
+				if (agentName == "Adrien Low") {
+					agentEmail = "adrien.low@servicerocket.com"
+				} else if (agentName == "Baskar AL Annamalai") {
+					agentEmail = "baskar.annamalai@servicerocket.com"
+				} else if (agentName == "David Freitez") {
+					agentEmail = "david.freitez@servicerocket.com"
+				} else if (agentName == "Diego Barros") {
+					agentEmail = "diego.barros@servicerocket.com"
+				} else if (agentName == "Farhana Saffi") {
+					agentEmail = "farhana.saffi@servicerocket.com"
+				} else if (agentName == "Gon Riquelme Martínez") {
+					agentEmail = "gonzalo.riquelme@servicerocket.com"
+				} else if (agentName == "Jenny Leong") {
+					agentEmail = "jenny.leong@servicerocket.com"
+				} else if (agentName == "Mervyn Toh") {
+					agentEmail = "mervyn.toh@servicerocket.com"
+				} else if (agentName == "Nicolás Tagle") {
+					agentEmail = "nicolas.tagle@servicerocket.com"
+				} else if (agentName == "Oscar Calderon") {
+					agentEmail = "oscar.calderon@servicerocket.com"
+				} else if (agentName == "Renzo Angelo Molina Arriagada") {
+					agentEmail = "renzo.arriagada@servicerocket.com"
+				} else if (agentName == "Samuel Gatica") {
+					agentEmail = "samuel.gatica@servicerocket.com"
+				} else if (agentName == "Tze Siong Chong") {
+					agentEmail = "tzesiong.chong@servicerocket.com"
+				} else if (agentName == "Ziana Hanafi") {
+					agentEmail = "nurhana.hanafi@servicerocket.com"
+				}
+
+				if(document.getElementById("survey").value == "CSAT") {
+					getCSATurl();
+				} else if(document.getElementById("survey").value == "CES") {
+					getCESurl();
+				} else if(document.getElementById("survey").value == "NPS") {
+					getNPSurl();
+				}
+			}
+
+			function getCSATurl() {
+				document.getElementById('surveyurl').value = 'https://api.simplesat.io/api/rating/1kfBZME0pe0PmOseopIzrkaFhm2sJ2wWGdgSxzqAsoo/' + document.getElementById("ticketid").value + '/?source=generic_embed&customer_email=' + document.getElementById("customeremail").value + '&customer_first_name=' + document.getElementById("customername").value + '&team_member_email=' + /*document.getElementById("agentemail").value*/ agentEmail + '&team_member_first_name=' + document.getElementById("agentname").value + '&company_name=' + document.getElementById("companyCSAT").value/* + '&ticket_subject=' + document.getElementById("ticketsubject").value*/;
+			}
+
+			function getCESurl() {
+				document.getElementById('surveyurl').value = 'https://api.simplesat.io/api/rating/wtF6CvFELHK_tTunlSxa7HOHRj7YVXRt2LUPj8m7ptQ/' + '?source=generic_embed&customer_email=' + document.getElementById("customeremail").value + '&customer_first_name=' + document.getElementById("customername").value + '&team_member_email=' + /*document.getElementById("agentemail").value*/ agentEmail + '&team_member_first_name=' + document.getElementById("agentname").value + '&company_name=' + document.getElementById("companyALL").value + '&ticket_subject=' + document.getElementById("ticketsubject").value;
+			}
+			
+			
+			function getNPSurl() {
+				document.getElementById('surveyurl').value = 'https://api.simplesat.io/api/rating/uYjYdIX8rYP0p6-6kN1C9hQUMUejB3n2AhMMDlNEGuc/' + '?source=generic_embed&customer_email=' + document.getElementById("customeremail").value + '&customer_first_name=' + document.getElementById("customername").value + '&team_member_email=' + /*document.getElementById("agentemail").value*/ agentEmail + '&team_member_first_name=' + document.getElementById("agentname").value + '&company_name=' + document.getElementById("companyALL").value;
+			}
+
+			function copyURL() {
+				var completeURL = document.getElementById('surveyurl');
+
+				completeURL.select();
+				navigator.clipboard.writeText(completeURL.value);
+
+				alert('URL was copied to your clipboard: ' + completeURL.value);
+			}
+		</script>
+		<style>
+			table tr {text-align:left;}
+			table td input, table td select {width:500px;}
+			table tr, table td {padding:5px 0px;}
+			p {margin-bottom:50px;}
+			button {cursor:pointer;}
+			#OTHERS {display:none;}
+		</style>
+		<title>
+			Custome survey URL generator
+		</title>
+	</head>
+
+	<body>
+
+		<form>
+			<table>
+				<tr class="survey">
+					<th>
+						<label>Survey Type</label>
+					</th>
+					<td>
+						<b>:</b> <!--<input type="text" id="company">-->
+						<select id="survey" name="company">
+							<option value=""></option>
+							<option value="CSAT">CSAT - Support ticket survey</option>
+							<option value="CES">CES - Project survey</option>
+							<option value="NPS">NPS - Customer offboarding survey</option>
+						</select>
+					</td>
+				</tr>
+				<tr class="ticketid">
+					<th>
+						<label>Ticket ID</label>
+					</th>
+					<td>
+						<b>:</b> <input type="text" id="ticketid">
+					</td>
+				</tr>
+				<tr class="ticketsubject">
+					<th>
+						<label>Ticket Subject</label>
+					</th>
+					<td>
+						<b>:</b> <input type="text" id="ticketsubject">
+					</td>
+				</tr>
+				<tr class="customeremail">
+					<th>
+						<label>Customer Email</label>
+					</th>
+					<td>
+						<b>:</b> <input type="text" id="customeremail">
+					</td>
+				</tr>
+				<tr class="customername">
+					<th>
+						<label>Customer Name</label>
+					</th>
+					<td>
+						<b>:</b> <input type="text" id="customername">
+					</td>
+				</tr>
+				<tr class="companyCSAT">
+					<th>
+						<label>Company</label>
+					</th>
+					<td>
+						<b>:</b> <!--<input type="text" id="company">-->
+						<select id="companyCSAT" name="company">
+							<option value="Jetstar">Jetstar</option>
+							<option value="Qantas">Qantas</option>
+							<option value="Skechers">Skechers</option>
+							<option value="Woodside">Woodside</option>
+						</select>
+					</td>
+				</tr>
+				<tr class="companyALL">
+					<th>
+						<label>Company</label>
+					</th>
+					<td>
+						<b>:</b> <!--<input type="text" id="company">-->
+						<select id="companyALL" name="company">
+							<option value="ALCiT">ALCiT</option>
+							<option value="Cengage Learning">Cengage Learning</option>
+							<option value="Cloudera">Cloudera</option>
+							<option value="CxOps LLC">CxOps LLC</option>
+							<option value="Disney Streaming">Disney Streaming</option>
+							<option value="Docomo Pacific">Docomo Pacific</option>
+							<option value="Eventbrite">Eventbrite</option>
+							<option value="Genentech">Genentech</option>
+							<option value="iSelect">iSelect</option>
+							<option value="Jetstar">Jetstar</option>
+							<option value="Lawrence Berkeley National Laboratory">Lawrence Berkeley National Laboratory</option>
+							<option value="Maybank">Maybank</option>
+							<option value="Meta">Meta</option>
+							<option value="Metro Trains Sydney">Metro Trains Sydney</option>
+							<option value="NSW Treasury">NSW Treasury</option>
+							<option value="Pegasus Logistics Group">Pegasus Logistics Group</option>
+							<option value="Personalis">Personalis</option>
+							<option value="Qantas">Qantas</option>
+							<option value="Red Bull">Red Bull</option>
+							<option value="Resmed AU">Resmed AU</option>
+							<option value="Savvas Learning">Savvas Learning</option>
+							<option value="Skechers">Skechers</option>
+							<option value="Super Awesome">Super Awesome</option>
+							<option value="Weight Watchers Internationals">Weight Watchers Internationals</option>
+							<option value="Woodside">Woodside</option>
+							<option value="Woodside hBHP">Woodside hBHP</option>
+						</select>
+					</td>
+				</tr>
+				<!-- <tr class="agentemail">
+					<th>
+						<label>Agent Email</label>
+					</th>
+					<td>
+						<b>:</b> <input type="text" id="agentemail">
+					</td>
+				</tr> -->
+				<tr class="agentname">
+					<th>
+						<label>Agent Name</label>
+					</th>
+					<td>
+						<b>:</b> <!--<input type="text" id="agentname">-->
+						<select id="agentname" name="agentname">
+							<option value="Adrien Low">Adrien Low</option>
+							<option value="Baskar AL Annamalai">Baskar AL Annamalai</option>
+							<option value="David Freitez">David Freitez</option>
+							<option value="Diego Barros">Diego Barros</option>
+							<option value="Farhana Saffi">Farhana Saffi</option>
+							<option value="Gon Riquelme Martínez">Gon Riquelme Martínez</option>
+							<option value="Jenny Leong">Jenny Leong</option>
+							<option value="Mervyn Toh">Mervyn Toh</option>
+							<option value="Nicolás Tagle">Nicolás Tagle</option>
+							<option value="Oscar Calderon">Oscar Calderon</option>
+							<option value="Renzo Angelo Molina Arriagada">Renzo Angelo Molina Arriagada</option>
+							<option value="Samuel Gatica">Samuel Gatica</option>
+							<option value="Tze Siong Chong">Tze Siong Chong</option>
+							<option value="Ziana Hanafi">Ziana Hanafi</option>
+						</select>
+					</td>
+				</tr>
+			</table>
+		</form>
+
+		<p style="margin-bottom:50px;">
+			<button type="submit" onclick="getInfo()">Generate URL</button>
+		</p>
+
+		<p>
+			<!-- <label><b>Survey URL:</b></label>
+			<br />
+			<input type="text" id="surveyurl" readonly disabled> -->
+			<textarea id="surveyurl" placeholder="Survey URL will be generated here." cols="200" rows="10" readonly disabled></textarea>
+			<br />
+			<button onclick="copyURL()">Copy URL</button>
+		</p>
+
+	</body>
+</html>
